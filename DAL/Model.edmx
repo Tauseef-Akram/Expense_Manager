@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Expense_ManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="record">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="expense_income" Type="bit" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+          <Property Name="category" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="notes" Type="varchar" MaxLength="250" />
+          <Property Name="userid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="confirm_password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="profile_pic_path" Type="varchar" MaxLength="100" />
+          <Property Name="month_start_date" Type="date" />
+        </EntityType>
+        <Association Name="FK_category_user_info">
+          <End Role="user_info" Type="Self.user_info" Multiplicity="1" />
+          <End Role="category" Type="Self.category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="category">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_transaction_category">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_transaction_user_info">
+          <End Role="user_info" Type="Self.user_info" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Expense_ManagerModelStoreContainer">
+          <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="record" EntityType="Self.record" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_info" EntityType="Self.user_info" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_category_user_info" Association="Self.FK_category_user_info">
+            <End Role="user_info" EntitySet="user_info" />
+            <End Role="category" EntitySet="category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_transaction_category" Association="Self.FK_transaction_category">
+            <End Role="category" EntitySet="category" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_transaction_user_info" Association="Self.FK_transaction_user_info">
+            <End Role="user_info" EntitySet="user_info" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Expense_ManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="record" Relationship="Self.FK_transaction_category" FromRole="category" ToRole="record" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user_info" Relationship="Expense_ManagerModel.FK_category_user_info" FromRole="category" ToRole="user_info" />
+        </EntityType>
+        <EntityType Name="record">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="expense_income" Type="Boolean" Nullable="false" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+          <Property Name="category" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="notes" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="category1" Relationship="Self.FK_transaction_category" FromRole="record" ToRole="category" />
+          <NavigationProperty Name="user_info" Relationship="Self.FK_transaction_user_info" FromRole="record" ToRole="user_info" />
+        </EntityType>
+        <EntityType Name="user_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="confirm_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="profile_pic_path" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="month_start_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="record" Relationship="Self.FK_transaction_user_info" FromRole="user_info" ToRole="record" />
+          <NavigationProperty Name="category" Relationship="Expense_ManagerModel.FK_category_user_info" FromRole="user_info" ToRole="category" />
+        </EntityType>
+        <Association Name="FK_transaction_category">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_transaction_user_info">
+          <End Role="user_info" Type="Self.user_info" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Expense_ManagerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="category" EntityType="Self.category" />
+          <EntitySet Name="record" EntityType="Self.record" />
+          <EntitySet Name="user_info" EntityType="Self.user_info" />
+          <AssociationSet Name="FK_transaction_category" Association="Self.FK_transaction_category">
+            <End Role="category" EntitySet="category" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_transaction_user_info" Association="Self.FK_transaction_user_info">
+            <End Role="user_info" EntitySet="user_info" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_category_user_info" Association="Expense_ManagerModel.FK_category_user_info">
+            <End Role="user_info" EntitySet="user_info" />
+            <End Role="category" EntitySet="category" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_category_user_info">
+          <End Type="Expense_ManagerModel.user_info" Role="user_info" Multiplicity="1" />
+          <End Type="Expense_ManagerModel.category" Role="category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="category">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Expense_ManagerModelStoreContainer" CdmEntityContainer="Expense_ManagerEntities">
+          <EntitySetMapping Name="category">
+            <EntityTypeMapping TypeName="Expense_ManagerModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="record">
+            <EntityTypeMapping TypeName="Expense_ManagerModel.record">
+              <MappingFragment StoreEntitySet="record">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="expense_income" ColumnName="expense_income" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_info">
+            <EntityTypeMapping TypeName="Expense_ManagerModel.user_info">
+              <MappingFragment StoreEntitySet="user_info">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="confirm_password" ColumnName="confirm_password" />
+                <ScalarProperty Name="profile_pic_path" ColumnName="profile_pic_path" />
+                <ScalarProperty Name="month_start_date" ColumnName="month_start_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

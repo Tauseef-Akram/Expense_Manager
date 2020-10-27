@@ -1,0 +1,89 @@
+﻿@model Models.UserInfo
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Register - Brand</title>
+    <link rel="stylesheet" href='@Url.Content("~/Content/css/bootstrap.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/css/dh-card-image-left-dark.css")'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href='@Url.Content("~/Content/css/Customizable-Carousel-swipe-enabled.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/fonts/fontawesome-all.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/fonts/font-awesome.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/fonts/fontawesome5-overrides.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/css/dataTables.bootstrap.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/css/Login-Form-Clean.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/css/Registration-Form-with-Photo.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Content/css/Data-Table.css")'>
+</head>
+
+<body class="bg-gradient-primary">
+    <div class="container">
+        <div class="card shadow-lg o-hidden border-0 my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-flex">
+                        <div class="flex-grow-1 bg-register-image" style="background-image:url('@Url.Content("~/images/dogs/image2.jpeg")')"></div>
+                    </div>
+                    <div class="col-lg-7 text-center">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h4 class="text-dark mb-4">Create an Account!</h4>
+                            </div>
+
+                            @*@using (Html.BeginForm("RegisterInfo","Account", FormMethod.Post, new { @class = "user", id = "FormId", name="form" }))
+                            {*@
+                               <form class="user" id="FormId"  name="form" >
+                                @Html.ValidationSummary(true)
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input class="form-control form-control-user" type="text" id="FirstName" placeholder="First Name" name="firstname">
+                                        <label id="vfname" class="text-danger" ></label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input class="form-control form-control-user" type="text" id="LastName" placeholder="Last Name" name="lastname">
+                                        <label id="vlname" class="text-danger"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control form-control-user" type="email" id="Email" aria-describedby="emailHelp" placeholder="Email Address" name="email">
+                                    <label id="vemail" class="text-danger"></label>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input class="form-control form-control-user" type="password" id="Password" placeholder="Password" name="password">
+                                        <label id="vpass" class="text-danger"></label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input class="form-control form-control-user" type="password" id="RepeatPassword" placeholder="Repeat Password" name="confirm_password">
+                                        <label id="vconfirmpass" class="text-danger"></label>
+                                    </div>
+                                </div><button id="RegisterBtn" type="button" class="btn btn-primary btn-block text-white btn-user" name="submit">Register Account</button>
+                                <hr>
+                                </form>
+                            @*}*@
+                            <div class="text-center"><a class="small" href=@Url.Action("ForgotPass", "Account")>Forgot Password?</a></div>
+                            <div class="text-center"><a class="small" href=@Url.Action("Login","Account")>Already have an account? Login!</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src='@Url.Content("~/Scripts/jquery.min.js")'></script>
+<script src='@Url.Content("~/Scripts/jquery.validate.js")'></script>
+<script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")'></script>
+<script src='@Url.Content("~/Scripts/js/jquery-ui.js")'></script>
+<script src='@Url.Content("~/Scripts/js/bootstrap.min.js")'></script>
+<script src='@Url.Content("~/Scripts/js/theme.js")'></script>
+<script src='@Url.Content("~/Scripts/js/jquery.easing.js")'></script>
+<script src='@Url.Content("~/Scripts/js/register.js")'></script>
+</html>

@@ -1,0 +1,93 @@
+﻿@model Models.Category
+@{
+    ViewBag.Title = "Add Category";
+    Layout = "~/Views/Shared/_Master_Layout.cshtml";
+}
+
+@{
+    string userId = "";
+    HttpCookie cookieObj = Context.Request.Cookies.Get("info");
+    if (cookieObj != null)
+    {
+        userId = cookieObj["id"];
+    }
+}
+<input id="useridHidden" type="hidden" value=@userId>     @*Setting user id here*@
+
+@{
+    IEnumerable<Category> category = ViewData["list"] as IEnumerable<Category>;
+    var countCat = 0;
+    if (category != null)
+    {
+        countCat = category.Count();
+    }
+
+}
+
+
+
+<div class="mt-5">
+    <label hidden="hidden" id="ScreenName" value="Add Category"></label>
+    <div class="row">
+        <div class="col">
+            <div class="container text-center">
+                <label>Category Name:&nbsp;</label><input type="text" id="categoryID" name="category_name"><button class="btn btn-primary ml-2" id="saveBtn" type="button" onclick="SaveCategory()"><i class="fas fa-save"></i>Add Category</button>
+                <button class="btn btn-danger ml-2" id="cancelBtn" hidden="hidden" type="button"><i class="fas fa-ban"></i>Cancel</button>
+                <div><label id="CategoryFieldValidation" class="text-danger"></label></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="mt-5"></div>
+    <div class="row">
+        <div class="col">
+            <div class="container">
+
+                <div class="col text-center">
+                    <!-- Start: Data Table -->
+                    @{
+                        var hidden = "";
+                        if (countCat > 0)
+                        {
+                            hidden = "";
+                        }
+                        else
+                        {
+                            hidden = "hidden";
+                        }
+                    }
+
+                    <table id="myTable" @{ if (countCat <= 0) { <text> hidden="hidden" </text> ; } } class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>S.NO</th>
+                                <th>CATEGORY NAME</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @{var i = 1;
+                                if (category != null)
+                                {
+                                    foreach (var item in category)
+                                    {
+                                        <tr>
+                                            <td><span>@(i++)</span></td>
+                                            <td>@item.category_name</td>
+                                            <td>
+                                                <button class="btn btn-dark" name="@item.id" id="EditBtn"><i class="fa fa-edit"></i>Edit</button>
+                                                <button class="btn btn-danger" name="@item.id" id="DeleteBtn"><i class="fa fa-trash"></i>Delete</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <!-- End: Data Table -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

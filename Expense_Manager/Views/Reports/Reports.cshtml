@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_Master_Layout.cshtml";
+}
+
+    <div class="mt-5">
+        <div class="container">
+            <label hidden="hidden" id="ScreenName" value="Reports"></label>
+            <div class="col text-center">
+                <!-- Start: Bootstrap 4's Custom Radios & Checkboxes -->
+                <div>
+                    <fieldset>
+                        <div class="custom-control custom-radio mt-2"><input type="radio" id="customRadio1" class="custom-control-input" name="customRadio" checked=""><label class="custom-control-label" for="customRadio1">On-Date</label><input id="datePicker" class="ml-2" type="date"></div>
+                        <div class="custom-control custom-radio mt-2">
+                            <input type="radio" id="customRadio2" class="custom-control-input" name="customRadio"><label class="custom-control-label" for="customRadio2">From</label><input class="ml-2" type="date"><label id="datePicker" class="ml-2" type="date">To</label>
+                            <input class="ml-2" type="date">
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- End: Bootstrap 4's Custom Radios & Checkboxes -->
+            </div>
+        </div>
+    </div>
+<div class="mt-5"></div>
+<div class="container d-lg-flex justify-content-lg-center align-items-lg-center">
+    <div class="col-3">
+        <!-- Start: Card Success -->
+        <div class="card shadow border-left-success py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Total Income&nbsp;</span></div>
+                        <div class="text-dark font-weight-bold h5 mb-0"><span>4500</span></div>
+                    </div>
+                    <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                </div>
+            </div>
+        </div>
+        <!-- End: Card Success -->
+    </div>
+    <div class="col-3">
+        <!-- Start: Card Success -->
+        <div class="card shadow border-left-danger py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>total Expense</span></div>
+                        <div class="text-dark font-weight-bold h5 mb-0"><span>500</span></div>
+                    </div>
+                    <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                </div>
+            </div>
+        </div>
+        <!-- End: Card Success -->
+    </div>
+</div>
+<div class="mt-5"></div><div class="container">
+    <!--Add partial view for table here -->

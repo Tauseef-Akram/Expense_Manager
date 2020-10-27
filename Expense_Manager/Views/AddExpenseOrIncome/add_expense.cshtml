@@ -1,0 +1,117 @@
+﻿@model Models.Records
+@{
+    ViewBag.Title = "Add Expense/Income";
+    Layout = "~/Views/Shared/_Master_Layout.cshtml";
+}
+
+
+@{
+    string userId = "";
+    HttpCookie cookieObj = Context.Request.Cookies.Get("info");
+    if (cookieObj != null)
+    {
+        userId = cookieObj["id"];
+    }
+}
+<input id="useridHidden" type="hidden" value=@userId>     @*Setting user id here*@
+
+<div>
+    <label hidden="hidden" id="ScreenName" value="Add Expense"></label>
+    <div class="container d-lg-flex justify-content-lg-center align-items-lg-center">
+        <div class="col-3">
+            <!-- Start: Card Success -->
+            <div class="card shadow border-left-success py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Income (monthly)</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span>4500</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End: Card Success -->
+        </div>
+        <div class="col-3">
+            <!-- Start: Card Success -->
+            <div class="card shadow border-left-danger py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Expense (monthly)</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span>500</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End: Card Success -->
+        </div>
+        <div class="col-3">
+            <!-- Start: Card Primary -->
+            <div class="card shadow border-left-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>balance (monthly)</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span>4000</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End: Card Primary -->
+        </div>
+    </div>
+</div>
+<!-- End: 1 Row 3 Columns --><div class="mt-5"></div>
+<div class="container d-lg-flex justify-content-lg-center">
+    <div class="col-7">
+        <div class="container d-lg-flex justify-content-lg-center align-items-lg-center">
+            <div class="card shadow-sm flex-fill">
+                <div class="card-body d-lg-flex justify-content-lg-center">
+                    <form class="flex-fill" method="post" id="addrecordform">
+                        <div class="form-group">
+                            <div>
+
+                                <fieldset>
+                                    <div class="custom-control custom-radio custom-control-inline"><input type="radio" id="customRadioInline1" class="custom-control-input" name="expense_income" value="false" checked><label class="custom-control-label" for="customRadioInline1">Expense</label></div>
+                                    <div class="custom-control custom-radio custom-control-inline"><input type="radio" id="customRadioInline2" class="custom-control-input" name="expense_income" value="true"><label class="custom-control-label" for="customRadioInline2">Income</label></div>
+                                </fieldset>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.amount, "", new { @class = "text-danger" })
+                            <div><label>Amount:</label>
+                            @Html.TextBoxFor(m => m.amount, new { @class="form-control", @type="text", @name="amount"})
+                            @*<input class="form-control" type="text" name="amount"></div>*@
+                            @Html.ValidationMessageFor(m => m.category, "", new { @class = "text-danger" })
+                            <div class="text-left">
+                                <label>Purpose:</label>
+                                <div>
+                                    @Html.DropDownListFor(model => model.category, new SelectList(ViewBag.list, "id", "category_name"), "Select Category", htmlAttributes: new { @class = "form-control" })
+                                </div>
+
+                                @*<div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle col" data-toggle="dropdown" aria-expanded="false" type="button">Select from categories</button>
+
+
+                <div class="dropdown-menu" role="menu" id="itemList">
+                    <a class="dropdown-item" role="presentation" href="#">First Item</a>
+                    <a class="dropdown-item" role="presentation" href="#">Second Item</a>
+                    <a class="dropdown-item" role="presentation" href="#">Third Item</a>
+                </div>
+            </div>*@
+                            </div>
+                            @Html.ValidationMessageFor(m => m.date, "", new { @class = "text-danger" })
+                            <div class="mt-3"><label>Date:</label>
+                                @Html.TextBoxFor(m=>m.date,new { @class="form-control", @id="datePicker" , @type="date" , @name="date"})
+                            @*<input class="form-control" id="datePicker" type="date" name="date"></div>*@
+                            <div><label>Notes:</label><textarea class="form-control" name="notes"></textarea></div>
+                            <div class="mt-3"><button class="btn btn-primary col" type="submit" id="submit">Save</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
