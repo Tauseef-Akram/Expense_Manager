@@ -21,7 +21,7 @@ namespace BLL
         public int IsUserExistWithUsernamePass(Models.Login info)
         {
             int result = account.IsUserExistWithUsernamePass(info);
-            return result; //
+            return result; //aaa
 
         }
 
