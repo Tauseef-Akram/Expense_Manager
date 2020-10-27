@@ -11,7 +11,6 @@
         <AssociationConnector Association="Expense_ManagerModel.FK_transaction_category" ManuallyRouted="false" />
         <AssociationConnector Association="Expense_ManagerModel.FK_transaction_user_info" ManuallyRouted="false" />
         <AssociationConnector Association="Expense_ManagerModel.FK_category_user_info" />
-        <AssociationConnector Association="Expense_ManagerModel.FK_category_user_info" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
